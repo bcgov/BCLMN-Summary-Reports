@@ -4,10 +4,10 @@ library(dplyr)
 # --- Define the list of lakes to render ---
 # Add one row per lake. lakeDepth can be NA if unknown.
 lakes <- tibble::tribble(
-  ~ems_id,     ~title,                    ~lakeDepth,
-  "E206283",   "Lizard Lake",             15,
-  "E207466",   "Quamichan Lake",          7,
-  "0500615",   "Skaha Lake",      54
+  ~ems_id,     ~title,        
+  "E206283",   "Lizard Lake", 
+  "E207466",   "Quamichan Lake", 
+  "0500615",   "Skaha Lake", 
 )
 
 # --- Path to the report template and parameter CSV ---
