@@ -1,0 +1,66 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+```{=html}
+[![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+```
+
+# BC Lake Monitoring Network Summary Reports
+
+This project repository includes code to pull lake water quality data from 
+the [BC Environmental Monitoring Data System](https://www2.gov.bc.ca/gov/content?id=BDE7F9F4BC4546629582CEBC4ABC8101) accessed via the publicly available [EnMoDS Web Reporting](https://enmodswr.nrs.gov.bc.ca/) tool.
+
+Observational data is collected as part of the [BC Lake Monitoring Network](https://www2.gov.bc.ca/gov/content?id=2493EFF1E42747E1904540DA4D2CF9DD). Output reports are shared with the public via the website and are linked to the [BC Lake Monitoring Networks Interactive Map](https://governmentofbc.maps.arcgis.com/apps/webappviewer/index.html?id=dc3a3c7341ed4aafb46054cb6891eea5).
+
+### Usage
+
+There are three core scripts.
+
+- helpers.R
+- lake_report.Rmd
+- render_all_lakes.R
+
+In addition to these scripts the csv file `parameters_with_BCWQG_AquaticLife.csv` contains information on which parameters are to be plotted and if applicable what the [BC Water Quality Guidelines](https://www2.gov.bc.ca/gov/content?id=044DD64C7E24415D83D07430964113C9) are.
+
+### Project Status
+
+### Getting Help or Reporting an Issue
+
+To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/hyPPO/issues/).
+
+### How to Contribute
+
+If you would like to contribute, please see our [CONTRIBUTING](CONTRIBUTING.md) guidelines.
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+### License
+
+```         
+Copyright 2026 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+```
+
+------------------------------------------------------------------------
+
+*This project was created using the [bcgovr](https://github.com/bcgov/bcgovr) package.*

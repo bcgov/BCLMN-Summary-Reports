@@ -1,0 +1,373 @@
+/* BC Gov Font workaround for Cross-Origin Resource Sharing block by CL and RT */
+
+/* background image */
+
+body,
+html {
+    
+}
+
+.template {
+    min-height: 100%;
+    background-color: #fff;
+    word-wrap: break-word;
+}
+
+.container-fluid {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+.main-container {
+    max-width: none !important;
+}
+
+#footer {
+    margin-top: -44px;
+}
+
+
+
+#themeTemplate .contentPageMainColumn a,
+#subthemeTemplate .contentPageMainColumn a {
+	
+}
+
+
+/* logo whitespace */
+
+#header .bcgov-title h1 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 5px;
+    margin-left: 18px;
+    margin-top: 15px;
+    text-rendering: optimizeLegibility;
+    font-weight: 400;
+}
+
+#header .bcgov-title h2 {
+    color: #fff;
+    margin-bottom: 8px;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-rendering: optimizeLegibility;
+    font-size: 1.8em;
+}
+
+.bcgov-title {
+    margin-left: -35px;
+    padding-bottom: 10px;
+}
+
+.beta-banner {
+    color:#fcba19;
+    margin-top: -.5em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#env-user-container {
+    position: relative;
+    text-align: right;
+    width: 50%;
+    float: right;
+}
+
+.header-main-right {
+    margin-top: 16px;
+}
+
+.header-main-right > label {
+    color: #fff;
+    padding-right: 20px;
+}
+
+.navbar-fixed-top {
+    position: absolute;
+}
+
+
+#breadcrumbContainer {
+    width: 100%;
+    float: left;
+    height: 30px;
+    padding: 0;
+}
+
+.header-main-left {
+    white-space: nowrap;
+}
+
+
+.contentPageMainColumn ul>li,
+.contentPageRightColumn ul>li,
+.homePageRightColumn ul>li, 
+#footer ul.bulleted>li {
+	
+	background: none;
+	
+}
+
+
+@media (max-width: 767px) {
+    .env-container {
+        padding-top: 10px !important;
+        position: relative;
+    }
+    #header #logo img {
+        width: 95%;
+        height: 95%;
+        padding-left: 15px;
+    }
+    #breadcrumbContainer {
+        height: auto;
+        padding: 10px 0;
+    }
+}
+
+@media (min-width:1200px) {
+    .col-lg-6 {
+    width: 60% !important;
+    }
+}
+
+@media (max-width:1200px) {
+    .bcgov-title {
+        margin-left: 0px;
+    }
+    
+}
+
+@media (min-width: 768px) {
+    .env-container {
+        padding-top: 150px !important;
+        position: relative;
+    }
+    #breadcrumbContainer {
+        height: 45px;
+    }
+}
+
+
+/* fix navbar button to resemble standard button toggle control */
+
+button.navbar-toggle {
+    background-color: transparent !important;
+}
+
+button.env-button-custom {
+    border: none;
+    right: 30px;
+    padding-bottom: 15px;
+}
+
+
+/* accurate colours for navbar links */
+
+#navbar > ul.nav > li > a {
+    color: #fff;
+}
+
+#navbar > ul.nav > li.active > a {
+    color: #1a5a96;
+}
+
+#navbar > ul.nav > li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #1a5a96;
+}
+
+
+/* adjust spacing for small screens */
+
+@media (max-width: 1200px) {
+    #header .bcgov-title h1 {
+        font-size: 1.3em;
+    margin-top: 28px;}
+    }
+
+
+@media (max-width: 767px) {
+    #env-logo {
+        margin: 5px 0 5px 15px;
+    }
+    .navigationRibbon {
+        visibility: hidden;
+        height: 0;
+    }
+    #navbar {
+        width: 100%;
+        border-top: none;
+    }
+    .navbar-toggle {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+    #header .bcgov-title h1 {
+    color: #fff;
+        font-size: 1.3em;}
+    
+}
+
+
+/* remove navigation for all but small screens */
+
+@media (min-width: 768px) {
+    #navbar,
+    #navbar ul {
+        visibility: hidden;
+        height: 0;
+    }
+    .navbar-collapse {
+        padding: 0 !important;
+    }
+}
+
+
+/* reset padding for dropdown menu controls */
+
+.contentPageMainColumn ul.dropdown-menu {
+    padding-left: 0 !important;
+}
+
+.contentPageMainColumn ul.list-group {
+    padding-left: 0;
+}
+
+
+/* remove block image for dropdown menu <li> items */
+
+ul.dropdown-menu > li {
+    background-image: none !important;
+    padding-left: 0 !important;
+}
+
+
+/* Bring back the Bootstrap Column Padding*/
+
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    /** padding-right: 10px; **/
+    /** padding-left: 10px; **/
+}
+
+
+/* Modal Window Dressing */
+
+h4.modal-title {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.modal-header {
+    color: #ffffff;
+    background-color: #003366;
+    border-color: #003366;
+}
+
+.modal-header > button {
+    color: #fff;
+    margin-top: 0 !important;
+    opacity: initial;
+    text-shadow: initial;
+}
+
+.close:focus, .close:hover {
+    color:#fcba19;
+    opacity: initial;
+    text-decoration: underline;
+}
+
+
+
+/* tweak nav tab spacing */
+
+.nav-tabs > li {
+    margin-bottom: -1px !important;
+}
+
+
+
+
+#pageIntro {
+    margin-bottom: 20px;
+}
+
+
+
+/* env Icons */
+
+i.text-env {
+    color: #f4bd48;
+    text-shadow: 0 1px 0 #000;
+}
+
+
+
+
+/* Payment List */
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+
+
+
+.text-default {
+    color: #444;
+}
+
+

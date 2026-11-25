@@ -1,0 +1,119 @@
+---
+title: "`r params$title`"
+lang: "en"
+output:
+  html_document:
+    theme: flatly
+    css:
+      - css/styles.css
+      - css/lake_components.css
+    includes:
+      in_header: includes/head.html
+      before_body: includes/navbar.html
+      after_body: includes/footer.html
+params:
+  title: "Lake Report"
+  ems_id: "0500615"
+  from_date: "2017-01-01"
+  parameter_file: "parameters_with_BCWQG_AquaticLife.csv"
+  save_csv: false   # also write this lake's data to <ems_id>_data_<date>.csv
+---
+
+```{r setup, include=FALSE}
+# Report structure
+#   R/helpers.R              all settings (thresholds, colours, tab order) and functions
+#   css/lake_components.css  styles for trend badges, dashboard and guideline cards
+#
+# TODO (from call with Mike -- please confirm status):
+#   [x] Add middle point to sample depth plot to show the three samples
+#   [ ] Remove lake bottom (not sure this was done)
+#   [x] Add WQ parameter guideline
+#   [x] Add WQ trend statement (trend badges / dashboard)
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+source("helpers.R")   # also loads the packages used by the report
+```
+
+```{r LoadData, include=FALSE}
+# 1. Download the lake's data and optionally save a copy
+site_data <- load_lake_data(params$ems_id, params$from_date)
+
+if (params$save_csv) {
+  write.csv(site_data, paste0(params$ems_id, "_data_", Sys.Date(), ".csv"), row.names = FALSE)
+}
+
+# 2. Keep only the parameters listed in the parameter CSV, drop sparse ones,
+#    and put results in readable units
+parameter_list <- load_parameter_list(params$parameter_file)
+lake_data      <- prepare_lake_data(site_data, parameter_list)
+
+# 3. Trend results for every parameter x depth x season (used by plots and dashboard)
+trends <- calc_all_trends(lake_data)
+
+report_date <- Sys.Date()
+site_name   <- unique(lake_data$MONITORING_LOCATION)
+```
+
+---
+
+[`r params$title` (`r unique(lake_data$EMS_ID)`)](https://governmentofbc.maps.arcgis.com/apps/MapSeries/index.html?appid=a5ffb1bcffad4407b387292f2e55899f) is located at `r site_name`. Report generated: `r format(report_date, "%B %d, %Y")`.
+
+The plot below shows the sampling history at this site. Composite samples are indicated by a vertical line connecting the uppermost and lowermost sampling depths. Triangles (▲) indicate epilimnion (upper layer) samples; solid circles (●) indicate hypolimnion (bottom layer) samples. For lakes less than 10 m deep, a single sample 1 m below the surface represents the epilimnion and one 1 m off the bottom represents the hypolimnion.
+
+To read more about the B.C. Lakes Monitoring Network (BCLMN) go [here](https://www2.gov.bc.ca/gov/content?id=2493EFF1E42747E1904540DA4D2CF9DD).
+
+```{r SampleOverviewPlot, fig.width=9, fig.height=4.5, fig.align='center', out.width="85%", dpi=120, fig.cap="Sampling dates and depth ranges"}
+make_sampling_plot(lake_data)
+```
+
+---
+
+### Water Quality Trend Summary
+
+The table below gives an at-a-glance summary of every parameter analysed at this site: whether a statistically significant trend (p < 0.05) was detected in each depth/season group, and the applicable BC Aquatic Life guideline. Click a row's parameter name in the tabs below to see the full plot and history.
+
+<details>
+<summary style="cursor:pointer; font-weight:600; margin-bottom:8px;">Summary table of trend results</summary>
+
+```{r TrendDashboard, results='asis'}
+cat(make_trend_dashboard(lake_data, parameter_list, trends))
+```
+
+<p style="font-size:0.85em; color:#666; margin-top:8px;">
+n/a = fewer than 3 samples (or none) in that depth/season group.
+&#8212; no trend = no statistically significant trend, or more than 50% of results were non-detects.
+Badge colors indicate the <em>direction</em> of a detected trend only, not whether that direction is good or bad for water quality.
+</p>
+
+</details>
+
+---
+
+### Monitoring Results and Trends {.tabset}
+
+Each observation is shown as a black dot in the scatter plots below. Where a statistically significant trend is detected (p < 0.05 with at least 50% of observations above the detection limit), a trend line with 95% confidence bands is displayed and a coloured trend badge is shown on the plot giving the direction and magnitude of the trend. Open orange triangles (▽) indicate non-detects and are plotted at the detection limit.
+
+If a simple water quality guideline (that is one independent of other parameters) applies and measurements are within that guideline a green check box will display showing the guideline value, conversely if a guideline has been exceeded a yellow warning box will be displayed.
+
+Raw data: [EnMoDS Data Search and Download](https://enmodswr.nrs.gov.bc.ca/) | [Water Quality Guidelines](https://www2.gov.bc.ca/gov/content?id=044DD64C7E24415D83D07430964113C9)
+
+```{r CategoryTabs, results='asis', fig.height=7, fig.width=9}
+# One tab per category (order set by CATEGORIES in helpers.R), with one
+# sub-tab per parameter inside it.
+for (category in CATEGORIES) {
+  cat("\n\n#### **", category, "** {.tabset .tabset-fade .tabset-pills}\n\n", sep = "")
+
+  category_data <- filter(lake_data, Category == category)
+
+  for (param in order_parameters(category_data$PARAMETER, category)) {
+    render_parameter_tab(
+      category_data, param, parameter_list, trends,
+      report_title = params$title,
+      epi_only     = param %in% EPI_ONLY_PARAMETERS
+    )
+  }
+}
+```
+
+### Disclaimer
+This document was produced by an automated system and has not necessarily gone through quality control checks. It is presented "as-is" with no guarantee of accuracy or completeness. Read our full [Disclaimer](https://www2.gov.bc.ca/gov/content?id=79F93E018712422FBC8E674A67A70535) for more information.
